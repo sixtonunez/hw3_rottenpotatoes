@@ -1,10 +1,10 @@
-Feature: display list of movies sorted by different criteria
+Feature: Mostrar lista de peliculas ordenadas por diferentes criterios
  
   As an avid moviegoer
   So that I can quickly browse movies based on my preferences
   I want to see movies sorted by title or release date
 
-Background: movies have been added to database
+Background: Lista de Peliculas a agregar a la base de datos de prueba
   
   Given the following movies exist:
   | title                   | rating | release_date |
@@ -21,11 +21,26 @@ Background: movies have been added to database
 
   And I am on the RottenPotatoes home page
 
-Scenario: sort movies alphabetically
+Scenario: Ordenar peliculas alfabeticamente
   When I follow "Movie Title"
-  # your steps here
+  Then I should see "Aladdin" before "Amelie"
+  And I should see "Amelie" before "Chicken Run"    
+  And I should see "Chicken Run" before "Chocolat"
+  And I should see "Chocolat" before "Raiders of the Lost Ark"
+  And I should see "Raiders of the Lost Ark" before "The Help"
+  And I should see "The Help" before "The Incredibles"
+  And I should see "The Incredibles" before "The Terminator"
+  And I should see "The Terminator" before "When Harry Met Sally"
 
-Scenario: sort movies in increasing order of release date
+Scenario: Ordenar peliculas incrementalmente por release_date
   When I follow "Release Date"
-  # your steps here
+  Then I should see "2001: A Space Odyssey" before "Raiders of the Lost Ark"
+  And I should see "Raiders of the Lost Ark" before "The Terminator"
+	And I should see "The Terminator" before "When Harry Met Sally"
+	And I should see "When Harry Met Sally" before "Aladdin"
+	And I should see "Aladdin" before "Chicken Run"
+	And I should see "Chicken Run" before "Chocolat"
+	And I should see "Chocolat" before "Amelie"
+	And I should see "Amelie" before "The Incredibles"
+	And I should see "The Incredibles" before "The Help"
 

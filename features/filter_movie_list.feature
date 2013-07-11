@@ -1,10 +1,10 @@
-Feature: display list of movies filtered by MPAA rating
+Feature: Mostrar una lista de peliculas filtradas por MPAA rating
  
   As a concerned parent
   So that I can quickly browse movies appropriate for my family
   I want to see movies matching only certain MPAA ratings
 
-Background: movies have been added to database
+Background: Lista de Peliculas a agregar a la base de datos de prueba
 
   Given the following movies exist:
   | title                   | rating | release_date |
@@ -20,16 +20,28 @@ Background: movies have been added to database
   | Chicken Run             | G      | 21-Jun-2000  |
 
   And  I am on the RottenPotatoes home page
-  
-Scenario: restrict to movies with 'PG' or 'R' ratings
-  # enter step(s) to check the 'PG' and 'R' checkboxes
-  # enter step(s) to uncheck all other checkboxes
-  # enter step to "submit" the search form on the homepage
-  # enter step(s) to ensure that PG and R movies are visible
-  # enter step(s) to ensure that other movies are not visible
 
-Scenario: no ratings selected
-  # see assignment
+Scenario: Filtrar por rating 'PG' o 'R'
+  Given I check the following ratings: PG,R
+  And I uncheck the following ratings: PG-13,G,NC-17
+  And I press "Refresh"
+  Then I should see "When Harry Met Sally"
+  And I should see "The Terminator"
+  And I should see "Amelie"
+  And I should see "The Incredibles"
+  And I should see "Raiders of the Lost Ark"
+  And I should not see "Chicken Run"
+  And I should not see "Aladdin"
+  And I should not see "Chocolat"
+  And I should not see "2001: A Space Odyssey"
+  And I should not see "The Help"
 
-Scenario: all ratings selected
-  # see assignment
+Scenario: Cuando no tenemos ningun rating seleccionado
+  Given I uncheck the following ratings: PG-13,G,NC-17,PG,R
+  And I press "Refresh"
+  Then I should see all of the movies
+
+Scenario: Cuando tenemos todos los rating seleccionados
+  Given I check the following ratings: PG-13,G,NC-17,PG,R
+  And I press "Refresh"
+  Then I should see all of the movies
